@@ -2,11 +2,20 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User, Product } from './app.enties';
-import { ProductModule } from './product/product.module';
+import { User } from './auth/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    PassportModule.register({defaultStrategy: 'jwt'}),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions:{
+        expiresIn: 60*60,
+      }
+    }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: '49.50.167.99',
@@ -14,12 +23,13 @@ import { ProductModule } from './product/product.module';
       username: 'ryu',
       password: 'fbehddls147!',
       database: 'ilsung',
-      entities:[User,Product],
+      entities:[User],
       synchronize: false,
     }),
-    ProductModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
+  
 })
 export class AppModule {}

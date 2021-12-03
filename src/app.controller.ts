@@ -1,7 +1,5 @@
 import { Body, Controller, Get, Post, Render } from '@nestjs/common';
 import { AppService } from './app.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './app.enties';
 import { Hash } from 'crypto';
 @Controller()
 export class AppController {
