@@ -8,6 +8,8 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './users/users.module';
 import { ProductModule } from './product/product.module';
+import { Product } from './product/product.entity';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -25,12 +27,13 @@ import { ProductModule } from './product/product.module';
       username: 'ryu',
       password: 'fbehddls147!',
       database: 'ilsung',
-      entities:[User],
+      entities:[User,Product],
       synchronize: false,
     }),
     AuthModule,
     UsersModule,
-    ProductModule
+    ProductModule,
+    OrderModule
   ],
   controllers: [AppController],
   providers: [AppService],
