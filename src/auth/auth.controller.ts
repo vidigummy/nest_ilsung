@@ -17,9 +17,14 @@ export class AuthController {
     }
 
     @Post('/signin')
-    signin(@Body(ValidationPipe) authCredentialsSignInDto:AuthCredentialsSignInDto ): Promise<{accessToken:string}>{
+    signin(@Body(ValidationPipe) authCredentialsSignInDto:AuthCredentialsSignInDto ): Promise<any>{
         return this.authService.signIn(authCredentialsSignInDto);
     }
+
+    // @Post('/signin')
+    // async createToken(@Body(ValidationPipe) authCredentialsSignInDto:AuthCredentialsSignInDto ): Promise<any>{
+    //     return await this.authService.createToken();
+    // }
 
     @Get('/signin')
     @Render('signin')
@@ -34,7 +39,7 @@ export class AuthController {
     }
 
     // @Post('/test')
-    // // @UseGuards(AuthGuard())
+    // @UseGuards(AuthGuard())
     // test(@GetUser() user:User){
     //     console.log('user',user);
     //     return user;
@@ -43,7 +48,18 @@ export class AuthController {
     @Post('/test')
     @UseGuards(AuthGuard('jwt'))
     test(@Req() req){
-        console.log("여기까1진 왔다잉?");
-        console.log('req',req);
+        // console.log(req.authorization);
+        // console.log("여기까1진 왔다잉?");
+        const head = req.headers.authorization.replace('Bearer ', '');
+        var base64Payload = head.split('.')[1];
+        var payload_p = Buffer.from(base64Payload, 'base64');
+        var result = JSON.parse(payload_p.toString());
+        return result;
+        // return JSON.parse(req);
+    }
+
+    @Get('token')
+    async createToken_test(): Promise<any>{
+        return await this.authService.createToken_test();
     }
 }

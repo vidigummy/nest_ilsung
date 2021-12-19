@@ -5,11 +5,14 @@ import { ExtractJwt, Strategy } from "passport-jwt";
 import { UserRepositoryCommon } from "./user.repository.common";
 import { UserRepository } from "./user.repository";
 import { User } from "./user.entity";
+import {JwtPayload} from './interfaces/jwt-payload.interface';
+import { AuthService } from "./auth.service";
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy){
     constructor(
         @InjectRepository(UserRepository)
-        private userRepository: UserRepository
+        private userRepository: UserRepository,
+        private readonly authService: AuthService,
     ){
         super({
             secretOrKey: 'secret',
@@ -17,14 +20,12 @@ export class JwtStrategy extends PassportStrategy(Strategy){
         })
     }
 
-    async validate(payload){
-        const {user_id} = payload.user_id;
-
-        const user: User = await this.userRepository.findOne({user_id});
+    async validate(payload: JwtPayload, done: Function){
+        const user = await this.authService.validateUser(payload);
         if(!user){
-            throw new UnauthorizedException();
+            return done(new UnauthorizedException(), false);
         }
 
-        return user;
+        done(null, user);
     }
 }

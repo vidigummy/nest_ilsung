@@ -6,6 +6,8 @@ import { User } from './auth/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { UsersModule } from './users/users.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -26,7 +28,9 @@ import { JwtModule } from '@nestjs/jwt';
       entities:[User],
       synchronize: false,
     }),
-    AuthModule
+    AuthModule,
+    UsersModule,
+    ProductModule
   ],
   controllers: [AppController],
   providers: [AppService],
