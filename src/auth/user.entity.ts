@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Order_Sheet } from "src/order/order.ordersheet.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 export class User extends BaseEntity{
@@ -28,4 +29,7 @@ export class User extends BaseEntity{
 
     @Column()
     update_time:Date;
+
+    @OneToMany(type => Order_Sheet, order_sheet => order_sheet.user)
+    orders:Order_Sheet[];
 }

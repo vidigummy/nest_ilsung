@@ -20,4 +20,5 @@ export class Product extends BaseEntity {
 
     @Column()
     update_time: Date;
+    orders: any;
 }
