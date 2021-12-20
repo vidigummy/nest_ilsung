@@ -16,6 +16,6 @@ export class OrderController {
 
     @Get('/test')
     async orderview(): Promise<any>{
-        
+        return this.orderService.findtest();
     }
 }

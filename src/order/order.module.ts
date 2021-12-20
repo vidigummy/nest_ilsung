@@ -10,13 +10,14 @@ import { ProductModule } from 'src/product/product.module';
 import { User } from 'src/auth/user.entity';
 import { Order_Sheet } from './order.ordersheet.entity';
 import { Order_P } from './order.orderp.entity';
+import { OrderRepository } from './order.repository';
 
 @Module({
   imports: [
     AuthModule, ProductModule,
     TypeOrmModule.forFeature([User, Product, Order_Sheet, Order_P]),
   ],
-  providers: [OrderService, ProductRepository, UserRepository],
+  providers: [OrderService, ProductRepository, UserRepository, OrderRepository],
   controllers: [OrderController]
 })
 export class OrderModule {}
