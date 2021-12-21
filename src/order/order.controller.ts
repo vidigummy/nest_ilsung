@@ -18,4 +18,9 @@ export class OrderController {
     async orderview(): Promise<any>{
         return this.orderService.findtest();
     }
+
+    @Get('/wtf')
+    async whatthefuck(){
+        console.log(this.orderService.matchWith());
+    }
 }

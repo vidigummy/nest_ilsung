@@ -30,6 +30,6 @@ export class User extends BaseEntity{
     @Column()
     update_time:Date;
 
-    @OneToMany(type => Order_Sheet, order_sheet => order_sheet.user)
-    orders:Order_Sheet[];
+    @OneToMany((type) => Order_Sheet, (order_sheet) => order_sheet.user)
+    order_sheets:Order_Sheet[];
 }

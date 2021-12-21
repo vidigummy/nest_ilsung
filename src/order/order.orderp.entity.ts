@@ -8,12 +8,12 @@ export class Order_P extends BaseEntity {
     idx:number;
 
     @ManyToOne(type => Product, product => product.orders)Product: any;
-    @JoinColumn({name: 'product_idx'})
+    // @JoinColumn({name: 'product_idx'})
     product_idx:Product;
 
-    @ManyToOne(type => Order_Sheet, orderSheet => orderSheet.products)orders:Order_Sheet;
-    @JoinColumn({name: 'order_sheet_idx'})
-    order_sheet_idx:Order_Sheet;
+    @ManyToOne(type => Order_Sheet, (orderSheet) => orderSheet.order_products)
+    // @JoinColumn({name: 'order_sheet_idx'})
+    order:Order_Sheet;
 
     @Column()
     quentity: number;

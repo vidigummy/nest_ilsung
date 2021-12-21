@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository} from '@nestjs/typeorm';
+import { User } from 'src/auth/user.entity';
 import { Product } from 'src/product/product.entity';
 import { ProductRepository } from 'src/product/product.repository';
-import { Repository } from 'typeorm';
+import { Repository , createQueryBuilder, getConnection, getRepository} from 'typeorm';
 import { Order_Sheet } from './order.ordersheet.entity';
 import { OrderRepository } from './order.repository';
 
@@ -21,5 +22,12 @@ export class OrderService {
 
     async findtest(): Promise<Order_Sheet[]>{
         return this.orderRepository.find();
+    }
+
+    async matchWith(){
+        var a = await getRepository(Order_Sheet).createQueryBuilder('order_sheet').leftJoinAndSelect('order_sheet.user','user').getMany();
+        console.log(a);
+        // const first = await getConnection().createQueryBuilder().select('order_sheet','user').from(Order_Sheet, 'order_sheet').getMany();
+        // console.log(first);
     }
 }
