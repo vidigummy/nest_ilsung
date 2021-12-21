@@ -4,7 +4,7 @@ export class OrderPCommonDtd{
     @IsNumber()
     idx: number;
     @IsNumber()
-    product_idx: number;
+    productIdx: number;
 
     @IsNumber()
     order_sheet_idx: number;

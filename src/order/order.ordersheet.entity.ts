@@ -17,6 +17,6 @@ export class Order_Sheet extends BaseEntity{
     @Column()
     update_time: Date;
 
-    @OneToMany(type => Order_P, (order_p) => order_p.order)
+    @OneToMany((type) => Order_P, (order_p) => order_p.order)
     order_products: Order_P[];
 }
