@@ -38,7 +38,8 @@ export class OrderController {
 
     @Get('/orderIdTest')
     async getOrderInfo(){
-        var tmp = await this.orderService.getAllOrder();
-        console.log(tmp);
+        // var tmp = await this.orderService.getAllOrder();
+        // console.log(tmp);
+        this.orderService.getAllOrderSheetAdm();
     }
 }

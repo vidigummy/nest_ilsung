@@ -7,7 +7,7 @@ export class Order_Sheet extends BaseEntity{
     @PrimaryGeneratedColumn()
     idx: number;
 
-    @ManyToOne((type) => User, (user) => user.order_sheets, {nullable: false, onDelete: 'CASCADE'})
+    @ManyToOne((type) => User, (user) => user.order_sheets, {nullable: false, onDelete: 'CASCADE', eager: true})
     // @JoinColumn({name: 'userIdx'})
     user:User;
 

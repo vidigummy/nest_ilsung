@@ -12,6 +12,7 @@ import { Product } from './product/product.entity';
 import { OrderModule } from './order/order.module';
 import { Order_Sheet } from './order/order.ordersheet.entity';
 import { Order_P } from './order/order.orderp.entity';
+import { OrderSheetAdm } from './order/order.order_sheet_adm.entity';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { Order_P } from './order/order.orderp.entity';
       username: 'ryu',
       password: 'fbehddls147!',
       database: 'ilsung',
-      entities:[User,Product,Order_Sheet,Order_P],
+      entities:[User,Product,Order_Sheet,Order_P,OrderSheetAdm],
       synchronize: false,
     }),
     AuthModule,
