@@ -15,6 +15,7 @@ import { Order_P } from './order/order.orderp.entity';
 import { OrderSheetAdm } from './order/order.order_sheet_adm.entity';
 import { BordersModule } from './borders/boards.module';
 import { Boards } from './borders/boards.entity';
+import { InfoModule } from './info/info.module';
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { Boards } from './borders/boards.entity';
     UsersModule,
     ProductModule,
     OrderModule,
-    BordersModule
+    BordersModule,
+    InfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
