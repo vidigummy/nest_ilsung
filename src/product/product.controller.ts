@@ -20,12 +20,12 @@ export class ProductController {
     //     return this.productService.findOneByIdx(idx);
     // }
 
-    @Get('/product_idx/:idx')
+    @Get('/product-idx/:idx')
     async searchProductByIdx(@Param() param): Promise<any> {
         return this.productService.findOneByIdx(param.idx);
     }
 
-    @Get('/product_name/:name')
+    @Get('/product-name/:name')
     async searchProductName(@Param() param): Promise<any> {
         console.log(param.name);
         return this.productService.findOne(param.name);
