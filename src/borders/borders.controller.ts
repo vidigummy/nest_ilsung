@@ -46,9 +46,15 @@ export class BoardsController {
     }
 
     @Delete(':id')
-    async deleteOne(@Param() param): Promise<any>{
+    async deleteOne(@Req() req,@Param() param): Promise<any>{
+        const head = req.headers.authorization.replace('Bearer ', '');
+        var base64Payload = head.split('.')[1];
+        var payload_p = Buffer.from(base64Payload, 'base64');
+        var result = JSON.parse(payload_p.toString());
+        const user_name = result['user_id'];
+
         try{
-            this.boardsService.deleteOneBoard(param.id);
+            this.boardsService.deleteOneBoard(user_name, param.id);
             return true;
         }catch{
             return false;
@@ -69,7 +75,7 @@ export class BoardsController {
         }
         try{
             // console.log(answer);
-            this.boardsService.putOneBoard(param.id, answer);
+            this.boardsService.putOneBoard(result['user_id'],param.id, answer);
             return true;
         }catch{
             return false;

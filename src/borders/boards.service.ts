@@ -59,11 +59,18 @@ export class BordersService {
     }
     
 
-    async deleteOneBoard(board_idx :number){
-        await getConnection().createQueryBuilder().delete().from(Boards).where("idx = :id",{id:board_idx}).execute();
+    async deleteOneBoard(userId: string, board_idx :number){
+        const entityManager = getManager();
+        const user = await entityManager.findOne(User,{user_id:userId});
+        if(user.user_level > 0){
+            await getConnection().createQueryBuilder().delete().from(Boards).where("idx = :id",{id:board_idx}).execute();
+        }
+        else{
+            await getConnection().createQueryBuilder().delete().from(Boards).where("idx = :id AND userIdx = :userIdx",{id:board_idx, userIdx:user.idx}).execute();
+        }
     }
 
-    async putOneBoard(board_idx:number, answer:string){
+    async putOneBoard(userId: string, board_idx:number, answer:string){
         console.log(answer['answer']);
         await getConnection().createQueryBuilder().update(Boards).set({
             answer:answer['answer'],
