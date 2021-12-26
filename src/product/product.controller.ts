@@ -20,14 +20,14 @@ export class ProductController {
     //     return this.productService.findOneByIdx(idx);
     // }
 
-    @Get('/product_one')
-    async searchProductByIdx(@Query() idx:number): Promise<any> {
-        return this.productService.findOneByIdx(idx);
+    @Get('/product_idx/:idx')
+    async searchProductByIdx(@Param() param): Promise<any> {
+        return this.productService.findOneByIdx(param.idx);
     }
 
-    @Get('/product_name')
-    async searchProductName(@Query() product_name:string): Promise<any> {
-        console.log('byName');
-        return this.productService.findOne(product_name);
+    @Get('/product_name/:name')
+    async searchProductName(@Param() param): Promise<any> {
+        console.log(param.name);
+        return this.productService.findOne(param.name);
     }
 }

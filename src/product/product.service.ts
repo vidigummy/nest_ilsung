@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { NotFoundError } from 'rxjs';
-import { Repository } from 'typeorm';
+import { getManager, Repository } from 'typeorm';
 import { Product } from './product.entity';
 import { ProductRepository } from './product.repository';
 
@@ -19,12 +19,19 @@ export class ProductService {
     }
 
     async findOne(product_name: string): Promise<Product>{
-        const found = await this.productRepository.findOne(product_name);
-        if(!found){
-            throw new NotFoundException(`cant find ${product_name}`);
+        try{
+            const entityManger = getManager();
+            const product = await entityManger.findOne(Product,{product_name: product_name});
+            return product;
+        }catch{
+            throw new Error(`Product ${product_name}`);
         }
-        console.log(found);
-        return found;
+        // // const found = await this.productRepository.findOne("product_name = :pname",{pname:product_name});
+        // if(!product){
+        //     throw new NotFoundException(`cant find ${product_name}`);
+        // }
+        // console.log(found);
+        // return product;
     }
 
     async findOneByIdx(idx: number):Promise<Product>{
