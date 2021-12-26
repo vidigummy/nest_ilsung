@@ -13,8 +13,8 @@ import { OrderModule } from './order/order.module';
 import { Order_Sheet } from './order/order.ordersheet.entity';
 import { Order_P } from './order/order.orderp.entity';
 import { OrderSheetAdm } from './order/order.order_sheet_adm.entity';
-import { BordersModule } from './borders/boards.module';
-import { Boards } from './borders/boards.entity';
+import { BordersModule } from './boards/boards.module';
+import { Boards } from './boards/boards.entity';
 import { InfoModule } from './info/info.module';
 
 @Module({

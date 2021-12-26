@@ -1,4 +1,4 @@
-import { Boards } from "src/borders/boards.entity";
+import { Boards } from "src/boards/boards.entity";
 import { Order_Sheet } from "src/order/order.ordersheet.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 

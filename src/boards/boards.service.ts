@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/auth/user.entity';
 import { createConnection, getConnection, getManager, In, Repository } from 'typeorm';
 import { Boards } from './boards.entity';
-import { BordersRepository } from './borders.repository';
 import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
