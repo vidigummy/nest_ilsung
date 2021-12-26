@@ -45,12 +45,12 @@ export class AuthService {
         
     }
 
-    async createToken_test(){
-        const user: JwtPayload = { user_id: 'vidigummy', user_level: 0};
-        const accessToken = this.jwtService.sign(user);
-        // user.User.user_level = this
-        return {accessToken, expiresIn:3600};
-    }
+    // async createToken_test(){
+    //     const user: JwtPayload = { user_id: 'vidigummy', user_level: 0};
+    //     const accessToken = this.jwtService.sign(user);
+    //     // user.User.user_level = this
+    //     return {accessToken, expiresIn:3600};
+    // }
 
 
     async createToken(user_id: string, user_level: number){

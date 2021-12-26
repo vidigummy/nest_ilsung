@@ -1,3 +1,4 @@
+import { Boards } from "src/borders/boards.entity";
 import { Order_Sheet } from "src/order/order.ordersheet.entity";
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
@@ -32,4 +33,7 @@ export class User extends BaseEntity{
 
     @OneToMany((type) => Order_Sheet, (order_sheet) => order_sheet.user)
     order_sheets:Order_Sheet[];
+
+    @OneToMany((type) => Boards, (boards) => boards.user)
+    border_list:Boards[];
 }

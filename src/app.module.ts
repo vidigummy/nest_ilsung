@@ -13,6 +13,8 @@ import { OrderModule } from './order/order.module';
 import { Order_Sheet } from './order/order.ordersheet.entity';
 import { Order_P } from './order/order.orderp.entity';
 import { OrderSheetAdm } from './order/order.order_sheet_adm.entity';
+import { BordersModule } from './borders/boards.module';
+import { Boards } from './borders/boards.entity';
 
 @Module({
   imports: [
@@ -30,13 +32,14 @@ import { OrderSheetAdm } from './order/order.order_sheet_adm.entity';
       username: 'ryu',
       password: 'fbehddls147!',
       database: 'ilsung',
-      entities:[User,Product,Order_Sheet,Order_P,OrderSheetAdm],
+      entities:[User,Product,Order_Sheet,Order_P,OrderSheetAdm, Boards],
       synchronize: false,
     }),
     AuthModule,
     UsersModule,
     ProductModule,
-    OrderModule
+    OrderModule,
+    BordersModule
   ],
   controllers: [AppController],
   providers: [AppService],

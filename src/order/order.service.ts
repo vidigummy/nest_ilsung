@@ -4,6 +4,8 @@ import { User } from 'src/auth/user.entity';
 import { Product } from 'src/product/product.entity';
 import { ProductRepository } from 'src/product/product.repository';
 import { Repository , createQueryBuilder, getConnection, getRepository, getManager} from 'typeorm';
+import { MakeOrderDto } from './dto/makeorder.dto';
+import { Order_P } from './order.orderp.entity';
 import { Order_Sheet } from './order.ordersheet.entity';
 import { OrderSheetAdm } from './order.order_sheet_adm.entity';
 import { OrderRepository } from './order.repository';
@@ -48,7 +50,38 @@ export class OrderService {
         const test1 = new OrderSheetAdm();
         test1.orderIdx = 3;
         const orderadm = await entityManager.find(OrderSheetAdm,{userIdx: 32});
-        orderadm.forEach(element => console.log(element));
+        // orderadm.forEach(element => console.log(element));
         // console.log(orderadm);
+        return orderadm;
+    }
+
+
+    async putOrders(user_name:string, makeOrderDto : MakeOrderDto[]){
+        
+        const entityManager = getManager();
+        const order_sheet = new Order_Sheet();
+        const orderUser = await entityManager.findOne(User,{user_id: user_name});
+        order_sheet.user = orderUser;
+        
+        await entityManager.save(order_sheet);
+    }
+
+    async putOrder(user_id:string){
+        
+        const queryRunner = getConnection().createQueryRunner();
+
+        const entityManager = getManager();
+
+        const orderUser = await entityManager.findOne(User,{user_id: user_id});
+        const order_sheet_entity = Order_Sheet.create({user:orderUser});
+        const orderProduct = await entityManager.findOne(Product,{idx: 3});
+        const order_p_entity = Order_P.create({order: order_sheet_entity, quentity: 3, product:orderProduct});
+        // console.log('ssibal');
+        await queryRunner.startTransaction();
+        queryRunner.manager.save(order_sheet_entity);
+        queryRunner.commitTransaction();
+
+
+        
     }
 }

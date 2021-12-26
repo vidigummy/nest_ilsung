@@ -58,8 +58,8 @@ export class AuthController {
         // return JSON.parse(req);
     }
 
-    @Get('token')
-    async createToken_test(): Promise<any>{
-        return await this.authService.createToken_test();
-    }
+    // @Get('token')
+    // async createToken_test(): Promise<any>{
+    //     return await this.authService.createToken_test();
+    // }
 }
