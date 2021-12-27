@@ -12,6 +12,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script>
+		
 		function login(){
 			var search_var = document.querySelector('search_var');
 			var uidx = $('input[name=user_id]').val();
@@ -27,9 +28,7 @@
 					user_passwd : upwd,
 				},
 				success: function(data){
-					console.log("sex");
 					localStorage.setItem("auth",data.jwtToken);
-					console.log(data.jwtToken);
 					alert("로그인 성공 우호");
 				},
 				error: function(e){
@@ -124,9 +123,14 @@
 						I D <input type="text" name="user_id" placeholder="아이디를 입력하세요" maxlength=20 size=20 value=""><br />
 						PW <input type="text" name="user_passwd" maxlength=12 size=20 value="">
 
-							<input type="submit" value="확인" onclick="login()">
+							<input type="submit" value="확인" onclick="login();">
 					</form>
-
+					<script>
+						console.log(localStorage.length);
+						if(localStorage.length != 0) {
+							window.location.replace("index.html");
+						}
+					</script>
 				</div>
 			</div>
 		</div>
