@@ -29,6 +29,7 @@
 				},
 				success: function(data){
 					localStorage.setItem("auth",data.jwtToken);
+					localStorage.setItem("level",data.user_level);
 					alert("로그인 성공 우호");
 				},
 				error: function(e){
