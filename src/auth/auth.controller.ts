@@ -20,7 +20,7 @@ export class AuthController {
     async signin(@Body(ValidationPipe) authCredentialsSignInDto:AuthCredentialsSignInDto ): Promise<any>{
         const jwtToken =  await this.authService.signIn(authCredentialsSignInDto);
         console.log(jwtToken);
-        return {jwtToken: jwtToken['newToken']['accessToken']};
+        return {jwtToken: jwtToken['newToken']['accessToken'], user_level: jwtToken['newToken']['user']['user_level']};
     }
 
     // @Post('/signin')
