@@ -9,6 +9,36 @@
 <link href="css/style.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+
+<script>
+		
+	function login(){
+		var search_var = document.querySelector('search_var');
+		var title = $('input[title]').val();
+		var full_txt = $('input[name=comment]').val();
+		var token = localStorage.getItem('auth');
+		console.log(token);
+		$.ajax({
+			url:"localhost:3000/boards/write",
+			type:"post",
+			dataType:"json",
+			async: false,
+			headers: {'Authorization': 'Bearer ${token}'},
+			data:{
+				title : title,
+				full_txt : full_txt,
+			},
+			success: function(data){
+				alert("로그인 성공여");
+			},
+			error: function(e){
+				alert("로그인 실패여");
+			}
+		})
+
+	}
+	
+</script>
 </head>
 <body>
 
@@ -65,18 +95,11 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2">
-			<div class="done">
-				<div class="alert alert-success">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					Your message has been sent. Thank you!
-				</div>
-			</div>
-			<form method="post" action="contact.php" id="contactform">
+			<form id="contactform">
 				<div class="form">
-					<input type="text" name="name" placeholder="Your Name *">
-					<input type="text" name="email" placeholder="Your E-mail Address *">
-					<textarea name="comment" rows="7" placeholder="Type your Message *"></textarea>
-					<input type="submit" id="submit" class="clearfix btn" value="Send">
+					<input type="text" name="title" placeholder="title">
+					<textarea name="comment" rows="7" placeholder="Type your Message "></textarea>
+					<input type="submit" value="확인" onclick="login();">
 				</div>
 			</form>
 		</div>
