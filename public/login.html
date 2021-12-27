@@ -10,6 +10,36 @@
 	<link href="css/style.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+		function login(){
+			var search_var = document.querySelector('search_var');
+			var uidx = $('input[name=user_id]').val();
+			var upwd = $('input[name=user_passwd').val();
+			console.log(uidx);
+			$.ajax({
+				url:"http://localhost:3000/auth/signin/",
+				type:"post",
+				dataType:"json",
+				async: false,
+				data:{
+					user_id : uidx,
+					user_passwd : upwd,
+				},
+				success: function(data){
+					console.log("sex");
+					localStorage.setItem("auth",data.jwtToken);
+					console.log(data.jwtToken);
+					alert("로그인 성공 우호");
+				},
+				error: function(e){
+					alert("로그인 실패여");
+				}
+			})
+
+		}
+		
+	</script>
 </head>
 
 <body>
@@ -89,20 +119,14 @@
 					var section = document.querySelector('section');
 				</script>
 				<div class="col-md-4">
-					<form action="/auth/signin" method="post" id="frm">
+					<form id="frm">
 						<h1>로그인</h1>
 						I D <input type="text" name="user_id" placeholder="아이디를 입력하세요" maxlength=20 size=20 value=""><br />
 						PW <input type="text" name="user_passwd" maxlength=12 size=20 value="">
 
-							<input type="submit" value="확인" onclick="document.getElementsById('frm').submit();
-							var header = document.querySelector('header');">
+							<input type="submit" value="확인" onclick="login()">
 					</form>
-					
-					<script>
-						
-						console.log(obj)
-					</script>
-					
+
 				</div>
 			</div>
 		</div>
