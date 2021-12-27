@@ -85,7 +85,8 @@
 					</div>
 				</div>
 				<script>
-					var obj;
+					var header = document.querySelector('header');
+					var section = document.querySelector('section');
 				</script>
 				<div class="col-md-4">
 					<form action="/auth/signin" method="post" id="frm">
@@ -94,7 +95,7 @@
 						PW <input type="text" name="user_passwd" maxlength=12 size=20 value="">
 
 							<input type="submit" value="확인" onclick="document.getElementsById('frm').submit();
-							obj = document.getElementsById('frm')">
+							var header = document.querySelector('header');">
 					</form>
 					
 					<script>

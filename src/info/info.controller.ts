@@ -8,6 +8,6 @@ export class InfoController {
     @Get()
     @Render('info')
     getInfo(){
-        console.log("hihi");
+        // console.log("hihi");
     }
 }

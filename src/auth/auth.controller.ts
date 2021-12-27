@@ -17,8 +17,12 @@ export class AuthController {
     }
 
     @Post('/signin')
-    signin(@Body(ValidationPipe) authCredentialsSignInDto:AuthCredentialsSignInDto ): Promise<any>{
-        return this.authService.signIn(authCredentialsSignInDto);
+    @Render('get_info')
+    async signin(@Body(ValidationPipe) authCredentialsSignInDto:AuthCredentialsSignInDto ): Promise<any>{
+        const jwtToken =  await this.authService.signIn(authCredentialsSignInDto);
+        
+        console.log(jwtToken);
+        return {jwtToken: jwtToken['newToken']['accessToken']};
     }
 
     // @Post('/signin')

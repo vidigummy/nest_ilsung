@@ -32,7 +32,7 @@ export class AuthService {
             
             const newToken = await this.createToken(user_id, user_level);
             // const accessToken = await this.jwtService.sign(payload);
-            console.log(newToken);
+            // console.log(newToken);
             return {newToken};
         }else{
             throw new UnauthorizedException('logIn Failed!');
