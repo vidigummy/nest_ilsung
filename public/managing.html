@@ -1,177 +1,269 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="generator" content="">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
 
-<script>
-	function GetTable(){
-		var search_var = document.querySelector('search_var');
-		var token = localStorage.getItem('auth');
-		console.log(token);
-		$.ajax({
-			url:"http://localhost:3000/boards",
-			type:"get",
-			dataType:"json",
-			headers: {
-				"Authorization": "Bearer ${token}"
-			},
-			success:function(data){ //json 데이터를 반환 받음
-				alert("1")
-				if(data.length>0){
-					var tb = $("<table/>"); 
-					for(var i in data){//데이터를 하나씩 뽑아냄
-						//i번째 data 중 key가 id인 것의 value
-						var $id = data[i].id;
-						//i번째 data 중 key가 name인 것의 value
-						var $name = data[i].name; 
-						//<tr>태그 객체 생성            
-						var row = $("<tr/>").append(
-							//아래의 값을 <tr></tr>안에 삽입
-							$("<td/>").text($title), //<td>id값</td> 
-							$("<td/>").text($full_txt), //<td>name값</td>               
-						);
+	<style>
+		table {
+			width: 100%;
+			border: 1px solid #444444;
+		}
+
+		th,
+		td {
+			border: 1px solid #444444;
+			padding: 10px;
+		}
+	</style>
+
+	<script>
+		function debug() {
+			console.log("1")
+		}
+		function search_usr() {
+			var search_var = document.querySelector('search_var');
+			var token = localStorage.getItem('auth');
+			var usr_idx = $('input[name=usr_info]').val();
+			console.log(usr_idx);
+			console.log("http://localhost:3000/boards/" + usr_idx);
+			$.ajax({
+				url: "http://localhost:3000/boards/" + usr_idx,
+				type: "get",
+				dataType: "json",
+				headers: {
+					'Authorization': 'Bearer ' + token
+				},
+				success: function (data) {
+					alert("1")
+					console.log("1")
+					if (data.length > 0) {
+						var tb = $("<table/>");
+						var head_tr = $("<tr/>");
+						head_tr.append("<td>" + "<center>" + "<strong>" + "Index" + "</strong>" + "</center>" + "</td>");
+						head_tr.append("<td>" + "<center>" + "<strong>" + "user_id" + "</strong>" + "</center>" + "</td>");
+						head_tr.append("<td>" + "<center>" + "<strong>" + "p_num" + "</strong>" + "</center>" + "</td>");
+						head_tr.append("<td>" + "<center>" + "<strong>" + "address" + "</strong>" + "</center>" + "</td>");
+						head_tr.append("<td>" + "<center>" + "<strong>" + "email" + "</strong>" + "</center>" + "</td>");
+						tb.append(head_tr);
+
+						
+						for (var i in data) {//데이터를 하나씩 뽑아냄
+							var $idx = data[i].idx;
+							var $user_id = data[i].user_id;
+							var $p_num = data[i].phone_number; 
+							var $add = data[i].address;
+							var $email = data[i].email;
+							//<tr>태그 객체 생성
+							var tr = $("<tr/>");
+							tr.append("<td>" + $idx + "</td>");
+							tr.append("<td>" + $user_id + "</td>");
+							tr.append("<td>" + $p_num + "</td>");
+							tr.append("<td>" + $add + "</td>");
+							tr.append("<td>" + $email + "</td>");
+							tb.append(tr);
+						}
+
+						
 						//<table></table>안에 <tr></tr>넣기
-						tb.append(row); 
-					}
-					//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
-					$(".wrap").append(tb); 
-					      
-				}        
-			},
-			error:function(e){
-				alert("0");
-			}
-		})
-	}
+						//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
+						$(".wrap1").append(tb);
 
-</script>
+					}
+				},
+				error: function (e) {
+					alert("0");
+				}
+			})
+		}
+		function del() {
+			var search_var = document.querySelector('search_var');
+			var token = localStorage.getItem('auth');
+			var idx = $('input[name=idx]').val();
+			console.log("http://localhost:3000/boards/" + idx)
+			$.ajax({
+				url: "http://localhost:3000/boards/" + idx,
+				method: "DELETE",
+				dataType: "json",
+				headers: {
+					'Authorization': 'Bearer ' + token
+				},
+				success: function (data) {
+					alert("1")
+				},
+				error: function (e) {
+					alert("0")
+				}
+			})
+		}
+		function GetTable() {
+			var search_var = document.querySelector('search_var');
+			var token = localStorage.getItem('auth');
+			console.log(token);
+			$.ajax({
+				url: "http://localhost:3000/boards",
+				type: "get",
+				dataType: "json",
+				headers: {
+					'Authorization': 'Bearer ' + token
+				},
+				success: function (data) { //json 데이터를 반환 받음
+					alert("1")
+					if (data.length > 0) {
+						var tb = $("<table/>");
+						var local_tr = $("<tr/>");
+						var $ti = "Title";
+						var $in = "Inquiry";
+						local_tr.append("<td>" + "<center>" + "<strong>" + "Index" + "</strong>" + "</center>" + "</td>");
+						local_tr.append("<td>" + "<center>" + "<strong>" + $ti + "</strong>" + "</center>" + "</td>");
+						local_tr.append("<td>" + "<center>" + "<strong>" + $in + "</strong>" + "</center>" + "</td>");
+						//<table></table>안에 <tr></tr>넣기
+						tb.append(local_tr);
+						for (var i in data) {//데이터를 하나씩 뽑아냄
+							var $idx = data[i].idx;
+							var $title = data[i].title;
+							var $full_txt = data[i].full_txt;
+							//<tr>태그 객체 생성
+							var tr = $("<tr/>");
+							tr.append("<td>" + $idx + "</td>");
+							tr.append("<td>" + $title + "</td>");
+							tr.append("<td>" + $full_txt + "</td>");
+							//<table></table>안에 <tr></tr>넣기
+							tb.append(tr);
+						}
+						//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
+						$(".wrap").append(tb);
+
+					}
+				},
+				error: function (e) {
+					alert("0");
+				}
+			})
+		}
+
+	</script>
 </head>
+
 <body>
 
-<!-- HEADER =============================-->
-<header class="item header margin-top-0">
-	<div class="wrapper">
-		<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
-				<i class="fa fa-bars"></i>
-				<span class="sr-only">Toggle navigation</span>
-				</button>
-				<a href="index.html" class="navbar-brand brand"> IlsungGas </a>
-			</div>
-			<div id="navbar-collapse-02" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="propClone"><a href="index.html">Home</a></li>
-					<li class="propClone"><a href="info.html">Info</a></li>
-					<li class="propClone"><a href="shop.html">Product</a></li>
-					<li class="propClone"><a href="contact.html">Send</a></li>
-					<li class="propClone"><a href="managing.html">Managing</a></li>
-					<li class="propClone"><a href="login.html">login</a></li>
-				</ul>
-			</div>
-		</div>
-		</nav>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<div class="text-pageheader">
-						<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-							 Managing
+	<!-- HEADER =============================-->
+	<header class="item header margin-top-0">
+		<div class="wrapper">
+			<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header">
+						<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle"
+							type="button">
+							<i class="fa fa-bars"></i>
+							<span class="sr-only">Toggle navigation</span>
+						</button>
+						<a href="index.html" class="navbar-brand brand"> Ilsung Gas </a>
+					</div>
+					<div id="navbar-collapse-02" class="collapse navbar-collapse">
+						<ul class="nav navbar-nav navbar-right">
+							<li class="propClone"><a href="index.html">Home</a></li>
+							<li class="propClone"><a href="info.html">Info</a></li>
+							<li class="propClone"><a href="shop.html">Product</a></li>
+							<li class="propClone"><a href="contact.html">ASK</a></li>
+							<li class="propClone"><a href="managing.html">Managing</a></li>
+							<li class="propClone"><a href="login.html">login</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<div class="text-pageheader">
+							<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
+								Managing
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</header>
-<!-- CONTENT =============================-->
-<section class="item content">
-<div class="container toparea">
-	<script>
-		var level = localStorage.getItem('level');
-		if(level < 1) {
-			window.location.replace("index.html");
-			alert("허용된 사용자가 아닙니다.");
-		}
-	</script>
-	<div class="underlined-title">
-		<div class="editContent">
-			<h1 class="text-center latestitems">Ask you</h1>
-		</div>
-		<div class="wow-hr type_short">
-			<span class="wow-hr-h">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			</span>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2">
-			<div class="done">
-				<div class="alert alert-success">
-					<button type="button" class="close" data-dismiss="alert">×</button>
-					Your message has been sent. Thank you!
+	<!-- CONTENT =============================-->
+	<section class="item content">
+		<div class="container toparea">
+			<script>
+				var level = localStorage.getItem('level');
+				if (level < 1) {
+					window.location.replace("index.html");
+					alert("허용된 사용자가 아닙니다.");
+				}
+			</script>
+			<div class="underlined-title">
+				<div class="editContent">
+					<h1 class="text-center latestitems">Ask you</h1>
+				</div>
+				<div class="wow-hr type_short">
+					<span class="wow-hr-h">
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</span>
 				</div>
 			</div>
-			<form id="contactform">
-				<div class="form">
-					<div class="wrap">
-						<input type="button" value="확인" onclick="GetTable();">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<div class="done">
+						<div class="alert alert-success">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							Your message has been sent. Thank you!
+						</div>
 					</div>
+					<form id="contactform">
+						<div class="form">
+							<div class="wrap">
+								<input type="button" value="확인" onclick="GetTable();">
+								<td onclick="location.href='index.html'">
+							</div>
+							<div class="wrap1">
+								<strong>유저 정보</strong></br> <input type="text" name="usr_info" placeholder="유저 정보 볼 글 번호를 입력하세요." maxlength=20 size=5 value=""> </br></br>
+								<input type="submit" value="조회" onclick="search_usr();"></br></br></br>
+							</div>
+							<strong>삭제할 글 번호</strong></br> <input type="text" name="idx" placeholder="지울 글 번호를 입력하세요."
+								maxlength=20 size=5 value=""> </br></br>
+							<input type="submit" value="삭제" onclick="del();"></br></br></br>
+						</div>
+					</form>
 				</div>
-			</form>
+			</div>
+		</div>
+		</div>
+	</section>
+	<!-- FOOTER =============================-->
+	<div class="footer text-center">
+		<div class="container">
+			<div class="row">
+				<p class="footernote">
+					Connect with Ilsung
+				</p>
+				<ul class="social-iconsfooter">
+					<li><a href="#"><i class="fa fa-phone"></i></a></li>
+					<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+					<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+					<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+					<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
-</div>
-</div>
-</section>
-<!-- CALL TO ACTION =============================-->
-<section class="content-block" style="background-color:#00bba7;">
-<div class="container text-center">
-<div class="row">
-	<div class="col-sm-10 col-sm-offset-1">
-		<div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-			<h1 class="callactiontitle"> Promote Items Area Give Discount to Buyers <span class="callactionbutton"><i class="fa fa-gift"></i> WOW24TH</span>
-			</h1>
-		</div>
-	</div>
-</div>
-</div>
-</section>
-<!-- FOOTER =============================-->
-<div class="footer text-center">
-<div class="container">
-	<div class="row">
-		<p class="footernote">
-			 Connect with Scorilo
-		</p>
-		<ul class="social-iconsfooter">
-			<li><a href="#"><i class="fa fa-phone"></i></a></li>
-			<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-			<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-			<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-			<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-		</ul>
-		<p>
-			Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-
-		</p>
-	</div>
-</div>
-</div>
-<!-- SCRIPTS =============================-->
-<script src="js/jquery-.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/anim.js"></script>
-<script src="js/validate.js"></script>
+	<!-- SCRIPTS =============================-->
+	<script src="js/jquery-.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/anim.js"></script>
+	<script src="js/validate.js"></script>
 </body>
+
 </html>

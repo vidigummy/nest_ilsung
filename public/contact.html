@@ -16,16 +16,16 @@
 	function login(){
 		var search_var = document.querySelector('search_var');
 		var title = $('input[name=title]').val();
-		var full_txt = $('input[name=full_txt]').val();
+		var full_txt = $('textarea[name=full_txt]').val();
 		var token = localStorage.getItem('auth');
 		console.log(token);
 		
 		$.ajax({
 			url:"http://localhost:3000/boards/write/",
 			type:"post",
-			dataType: "json",
+			dataType: "jsonp",
 			headers: {
-				'Authorization': Bearer + '${token}',
+				'Authorization': 'Bearer ' + token
 			},
 			data:{
 				title : title,
@@ -48,47 +48,47 @@
 
 <!-- HEADER =============================-->
 <header class="item header margin-top-0">
-	<div class="wrapper">
-		<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
-				<i class="fa fa-bars"></i>
-				<span class="sr-only">Toggle navigation</span>
-				</button>
-				<a href="index.html" class="navbar-brand brand"> IlsungGas </a>
-			</div>
-			<div id="navbar-collapse-02" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="propClone"><a href="index.html">Home</a></li>
-					<li class="propClone"><a href="info.html">Info</a></li>
-					<li class="propClone"><a href="shop.html">Product</a></li>
-					<li class="propClone"><a href="contact.html">Ask</a></li>
-					<li class="propClone"><a href="managing.html">Managing</a></li>
-					<li class="propClone"><a href="login.html">login</a></li>
-				</ul>
-			</div>
+<div class="wrapper">
+	<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+			<i class="fa fa-bars"></i>
+			<span class="sr-only">Toggle navigation</span>
+			</button>
+			<a href="index.html" class="navbar-brand brand"> Ilsung Gas </a>
 		</div>
-		</nav>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<div class="text-pageheader">
-						<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-							 Ask
-						</div>
+		<div id="navbar-collapse-02" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="propClone"><a href="index.html">Home</a></li>
+				<li class="propClone"><a href="info.html">Info</a></li>
+				<li class="propClone"><a href="shop.html">Product</a></li>
+				<li class="propClone"><a href="contact.html">ASK</a></li>
+				<li class="propClone"><a href="managing.html">Managing</a></li>
+				<li class="propClone"><a href="login.html">login</a></li>
+			</ul>
+		</div>
+	</div>
+	</nav>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="text-pageheader">
+					<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
+						 ASK
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</header>
+</div>
+</header>
 <!-- CONTENT =============================-->
 <section class="item content">
 <div class="container toparea">
 	<div class="underlined-title">
 		<div class="editContent">
-			<h1 class="text-center latestitems">Get in Touch</h1>
+			<h1 class="text-center latestitems">ASK</h1>
 		</div>
 		<div class="wow-hr type_short">
 			<span class="wow-hr-h">
@@ -99,36 +99,23 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2">
+		<div class="col-lg-8 col-lg-offset-2">	
 			<form id="contactform">
 					<input type="text" name="title" placeholder="title">
-					<input type="text" name="full_txt"  placeholder="Type your Message ">
+					<!-- <input type="text" name="full_txt"  placeholder="Type your Message "> -->
+					<textarea name="full_txt" rows="7" placeholder="Type your Message *"></textarea>
 					<input type="submit" value="확인" onclick="login();">
 			</form>
 		</div>
 	</div>
 </div>
 </div>
-</section>
-<!-- CALL TO ACTION =============================-->
-<section class="content-block" style="background-color:#00bba7;">
-<div class="container text-center">
-<div class="row">
-	<div class="col-sm-10 col-sm-offset-1">
-		<div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-			<h1 class="callactiontitle"> Promote Items Area Give Discount to Buyers <span class="callactionbutton"><i class="fa fa-gift"></i> WOW24TH</span>
-			</h1>
-		</div>
-	</div>
-</div>
-</div>
-</section>
 <!-- FOOTER =============================-->
 <div class="footer text-center">
 <div class="container">
 	<div class="row">
 		<p class="footernote">
-			 Connect with Scorilo
+			 Connect with Ilsung
 		</p>
 		<ul class="social-iconsfooter">
 			<li><a href="#"><i class="fa fa-phone"></i></a></li>
@@ -137,10 +124,6 @@
 			<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 			<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
 		</ul>
-		<p>
-			Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
-
-		</p>
 	</div>
 </div>
 </div>

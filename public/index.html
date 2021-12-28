@@ -11,6 +11,14 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+    <script>
+
+        function logout(){
+            localStorage.removeItem("auth");
+            localStorage.removeItem("level");
+        }
+
+    </script>
 </head>
 <body>
     <a href="localhost:3000/index.html"></a>
@@ -33,7 +41,7 @@
                     <li class="propClone"><a href="index.html">Home</a></li>
                     <li class="propClone"><a href="info.html">Info</a></li>
                     <li class="propClone"><a href="shop.html">Product</a></li>
-                    <li class="propClone"><a href="contact.html">Send</a></li>
+                    <li class="propClone"><a href="contact.html">ASK</a></li>
                     <li class="propClone"><a href="managing.html">Managing</a></li>
                     <li class="propClone"><a href="login.html">login</a></li>
                 </ul>
@@ -127,14 +135,14 @@
                                     <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
                                 </p>
                             </div>
-                            <span class="maxproduct"><img src="images/product1-1.jpg" alt=""></span>
+                            <span class="maxproduct"><img src="images/helium.PNG" alt=""></span>
                         </div>
                         <div class="product-details">
                             <a href="#">
-                            <h1>Calypso Theme</h1>
+                            <h1>헬륨</h1>
                             </a>
                             <span class="price">
-                            <span class="edd_price">$49.00</span>
+                            <span class="edd_price">$99.00</span>
                             </span>
                         </div>
                     </div>
@@ -153,14 +161,14 @@
                                     <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
                                 </p>
                             </div>
-                            <span class="maxproduct"><img src="images/product2.jpg" alt=""></span>
+                            <span class="maxproduct"><img src="images/acetylene.PNG" alt=""></span>
                         </div>
                         <div class="product-details">
                             <a href="#">
-                            <h1>FastSell Theme</h1>
+                            <h1>아세틸렌</h1>
                             </a>
                             <span class="price">
-                            <span class="edd_price">$49.00</span>
+                            <span class="edd_price">$99.00</span>
                             </span>
                         </div>
                     </div>
@@ -179,14 +187,14 @@
                                     <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
                                 </p>
                             </div>
-                            <span class="maxproduct"><img src="images/product2-3.jpg" alt=""></span>
+                            <span class="maxproduct"><img src="images/argon.PNG" alt=""></span>
                         </div>
                         <div class="product-details">
                             <a href="#">
-                            <h1>Biscaya Theme</h1>
+                            <h1>아르곤</h1>
                             </a>
                             <span class="price">
-                            <span class="edd_price">$49.00</span>
+                            <span class="edd_price">$99.00</span>
                             </span>
                         </div>
                     </div>
@@ -218,10 +226,12 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="slide-text">
                     <div>
-                        <h2><span class="uppercase">Awesome Support</span></h2>
-                        <img src="http://wowthemes.net/demo/salique/salique-boxed/images/temp/avatar2.png" alt="Awesome Support">
+                        <h2><span class="uppercase">Ilsung</span></h2>
                         <p>
-                             The support... I can only say it's awesome. You make a product and you help people out any way you can even if it means that you have to log in on their dashboard to sort out any problems that customer might have. Simply Outstanding!
+                            반갑습니다. 일성가스상사 홈페이지에 방문하신 것을 환영합니다.</br>
+                            저희 일성가스상사에서는 가스관련 기기 및 용기 모든 제품을 취급하고 있으며 전화 문의 및 상담 환영합니다.</br>
+                            상담시 <strong>가스종류, 용도, 순도, 사용압력</strong> 등의 내용을 알려주시면 정확한 상담을 해드릴 수 있습니다.</br>
+                            <strong>031-456-6700</strong>으로 언제든지 연락 주십시오!</br>
                         </p>
                         <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                     </div>
@@ -246,6 +256,7 @@
                     <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                     <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><input type="button" value="로그아웃" onclick="logout();"></a></li>
                 </ul>
             </div>
         </div>
