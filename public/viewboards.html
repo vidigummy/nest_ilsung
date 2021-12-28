@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+<style>
+	table {
+		width: 100%;
+		border: 1px solid #444444;
+	}
+
+	th,
+	td {
+		border: 1px solid #444444;
+		padding: 10px;
+	}
+</style>
+</head>
+<body>
+
+<!-- HEADER =============================-->
+<header class="item header margin-top-0">
+	<div class="wrapper">
+		<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+				<i class="fa fa-bars"></i>
+				<span class="sr-only">Toggle navigation</span>
+				</button>
+				<a href="index.html" class="navbar-brand brand"> Ilsung Gas </a>
+			</div>
+			<div id="navbar-collapse-02" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="propClone"><a href="index.html">Home</a></li>
+                    <li class="propClone"><a href="info.html">Info</a></li>
+                    <li class="propClone"><a href="shop.html">Product</a></li>
+                    <li class="propClone"><a href="contact.html">ASK</a></li>
+                    <li class="propClone"><a href="managing.html">Managing</a></li>
+                    <li class="propClone"><a href="login.html">login</a></li>
+				</ul>
+			</div>
+		</div>
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="text-pageheader">
+						<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
+							 User Info
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		function search_usr() {
+			var search_var = document.querySelector('search_var');
+			var token = localStorage.getItem('auth');
+			var usr_idx = localStorage.getItem('idx');
+			console.log(usr_idx);
+			console.log("http://localhost:3000/boards/" + usr_idx);
+			$.ajax({
+				url: "http://localhost:3000/boards/" + usr_idx,
+				type: "get",
+				dataType: "json",
+				headers: {
+					'Authorization': 'Bearer ' + token
+				},
+				success: function (data) {
+					var tb = $("<table/>");
+					var head_tr = $("<tr/>");
+					head_tr.append("<td>" + "<center>" + "<strong>" + "Index" + "</strong>" + "</center>" + "</td>");
+					head_tr.append("<td>" + "<center>" + "<strong>" + "user_id" + "</strong>" + "</center>" + "</td>");
+					head_tr.append("<td>" + "<center>" + "<strong>" + "p_num" + "</strong>" + "</center>" + "</td>");
+					head_tr.append("<td>" + "<center>" + "<strong>" + "address" + "</strong>" + "</center>" + "</td>");
+					head_tr.append("<td>" + "<center>" + "<strong>" + "email" + "</strong>" + "</center>" + "</td>");
+					tb.append(head_tr);
+					
+					var $idx = data.idx;
+                     var $user_id = data.user.user_id;
+                     var $p_num = data.user.phone_number; 
+                     var $add = data.user.address;
+                     var $email = data.user.email;
+                     //<tr>태그 객체 생성
+                     var tr = $("<tr/>");
+                     tr.append("<td>" + $idx + "</td>");
+                     tr.append("<td>" + $user_id + "</td>");
+                     tr.append("<td>" + $p_num + "</td>");
+                     tr.append("<td>" + $add + "</td>");
+                     tr.append("<td>" + $email + "</td>");
+                     tb.append(tr);
+
+
+
+
+
+
+
+					//<table></table>안에 <tr></tr>넣기
+					//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
+					$(".wrap").append(tb);
+
+				},
+				error: function (e) {
+					alert("0");
+				}
+			})
+		}
+	</script>
+	</header>
+
+<!-- CONTENT =============================-->
+<section class="item content">
+<div class="container toparea">
+	<div class="underlined-title">
+		<div class="editContent">
+			<h1 class="text-center latestitems">사용자 정보</h1>
+		</div>
+		<div class="wow-hr type_short">
+			<span class="wow-hr-h">
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			</span>
+		</div>
+		<div class="text-center";>
+			<div class="wrap">
+				<legend>Info</legend>
+				<input type="button" value="조회" onclick="search_usr();"></br></br></br>
+			</div>
+		</div>
+	</br></br></br></br></br>
+	</div>
+	<div id="edd_checkout_wrap" class="col-md-8 col-md-offset-2">
+		<div id="edd_checkout_form_wrap" class="edd_clearfix">
+			
+			<fieldset id="edd_checkout_user_info">
+				
+			 </fieldset>
+		</div>
+		<div id="edd_checkout_form_wrap" class="edd_clearfix">
+			<fieldset id="edd_checkout_user_info">
+				
+				</div>
+			 </fieldset>
+		</div>
+		
+		<div id="edd_checkout_form_wrap" class="edd_clearfix">
+				<fieldset id="edd_checkout_user_info">
+					
+				</fieldset>
+		</div>
+		<input type="button" value="돌아가기" onclick="window.open('managing.html')"></br></br></br>
+		
+	</div>
+</div>
+</section>
+
+</section>
+
+<!-- FOOTER =============================-->
+<div class="footer text-center">
+	<div class="container">
+		<div class="row">
+			<p class="footernote">
+				 Connect with Ilsung
+			</p>
+			<ul class="social-iconsfooter">
+				<li><a href="#"><i class="fa fa-phone"></i></a></li>
+				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- SCRIPTS =============================-->
+<script src="js/jquery-.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/anim.js"></script>
+
+</body>
+</html>

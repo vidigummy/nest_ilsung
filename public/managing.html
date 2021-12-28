@@ -25,63 +25,9 @@
 	</style>
 
 	<script>
-		function debug() {
-			console.log("1")
-		}
-		function search_usr() {
-			var search_var = document.querySelector('search_var');
-			var token = localStorage.getItem('auth');
-			var usr_idx = $('input[name=usr_info]').val();
-			console.log(usr_idx);
-			console.log("http://localhost:3000/boards/" + usr_idx);
-			$.ajax({
-				url: "http://localhost:3000/boards/" + usr_idx,
-				type: "get",
-				dataType: "json",
-				headers: {
-					'Authorization': 'Bearer ' + token
-				},
-				success: function (data) {
-					alert("1")
-					console.log("1")
-					if (data.length > 0) {
-						var tb = $("<table/>");
-						var head_tr = $("<tr/>");
-						head_tr.append("<td>" + "<center>" + "<strong>" + "Index" + "</strong>" + "</center>" + "</td>");
-						head_tr.append("<td>" + "<center>" + "<strong>" + "user_id" + "</strong>" + "</center>" + "</td>");
-						head_tr.append("<td>" + "<center>" + "<strong>" + "p_num" + "</strong>" + "</center>" + "</td>");
-						head_tr.append("<td>" + "<center>" + "<strong>" + "address" + "</strong>" + "</center>" + "</td>");
-						head_tr.append("<td>" + "<center>" + "<strong>" + "email" + "</strong>" + "</center>" + "</td>");
-						tb.append(head_tr);
-
-						
-						for (var i in data) {//데이터를 하나씩 뽑아냄
-							var $idx = data[i].idx;
-							var $user_id = data[i].user_id;
-							var $p_num = data[i].phone_number; 
-							var $add = data[i].address;
-							var $email = data[i].email;
-							//<tr>태그 객체 생성
-							var tr = $("<tr/>");
-							tr.append("<td>" + $idx + "</td>");
-							tr.append("<td>" + $user_id + "</td>");
-							tr.append("<td>" + $p_num + "</td>");
-							tr.append("<td>" + $add + "</td>");
-							tr.append("<td>" + $email + "</td>");
-							tb.append(tr);
-						}
-
-						
-						//<table></table>안에 <tr></tr>넣기
-						//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
-						$(".wrap1").append(tb);
-
-					}
-				},
-				error: function (e) {
-					alert("0");
-				}
-			})
+		function store_idx(){
+			var useridx = $('input[name=usr_info]').val();
+			localStorage.setItem("idx",useridx);
 		}
 		function del() {
 			var search_var = document.querySelector('search_var');
@@ -96,7 +42,7 @@
 					'Authorization': 'Bearer ' + token
 				},
 				success: function (data) {
-					alert("1")
+					
 				},
 				error: function (e) {
 					alert("0")
@@ -115,33 +61,33 @@
 					'Authorization': 'Bearer ' + token
 				},
 				success: function (data) { //json 데이터를 반환 받음
-					alert("1")
-					if (data.length > 0) {
-						var tb = $("<table/>");
-						var local_tr = $("<tr/>");
-						var $ti = "Title";
-						var $in = "Inquiry";
-						local_tr.append("<td>" + "<center>" + "<strong>" + "Index" + "</strong>" + "</center>" + "</td>");
-						local_tr.append("<td>" + "<center>" + "<strong>" + $ti + "</strong>" + "</center>" + "</td>");
-						local_tr.append("<td>" + "<center>" + "<strong>" + $in + "</strong>" + "</center>" + "</td>");
-						//<table></table>안에 <tr></tr>넣기
-						tb.append(local_tr);
-						for (var i in data) {//데이터를 하나씩 뽑아냄
-							var $idx = data[i].idx;
-							var $title = data[i].title;
-							var $full_txt = data[i].full_txt;
-							//<tr>태그 객체 생성
-							var tr = $("<tr/>");
-							tr.append("<td>" + $idx + "</td>");
-							tr.append("<td>" + $title + "</td>");
-							tr.append("<td>" + $full_txt + "</td>");
-							//<table></table>안에 <tr></tr>넣기
-							tb.append(tr);
-						}
-						//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
-						$(".wrap").append(tb);
+					console.log(data.length);
 
+					var tb = $("<table/>");
+					var local_tr = $("<tr/>");
+					var $ti = "Title";
+					var $in = "Inquiry";
+					local_tr.append("<td>" + "<center>" + "<strong>" + "Index" + "</strong>" + "</center>" + "</td>");
+					local_tr.append("<td>" + "<center>" + "<strong>" + $ti + "</strong>" + "</center>" + "</td>");
+					local_tr.append("<td>" + "<center>" + "<strong>" + $in + "</strong>" + "</center>" + "</td>");
+					//<table></table>안에 <tr></tr>넣기
+					tb.append(local_tr);
+					for (var i in data) {//데이터를 하나씩 뽑아냄
+						var $idx = data[i].idx;
+						var $title = data[i].title;
+						var $full_txt = data[i].full_txt;
+						//<tr>태그 객체 생성
+						var tr = $("<tr/>");
+						tr.append("<td>" + $idx + "</td>");
+						tr.append("<td>" + $title + "</td>");
+						tr.append("<td>" + $full_txt + "</td>");
+						//<table></table>안에 <tr></tr>넣기
+						tb.append(tr);
 					}
+					//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
+					$(".a").append(tb);
+
+
 				},
 				error: function (e) {
 					alert("0");
@@ -224,13 +170,13 @@
 					</div>
 					<form id="contactform">
 						<div class="form">
-							<div class="wrap">
+							<div class="a">
 								<input type="button" value="확인" onclick="GetTable();">
-								<td onclick="location.href='index.html'">
 							</div>
 							<div class="wrap1">
-								<strong>유저 정보</strong></br> <input type="text" name="usr_info" placeholder="유저 정보 볼 글 번호를 입력하세요." maxlength=20 size=5 value=""> </br></br>
-								<input type="submit" value="조회" onclick="search_usr();"></br></br></br>
+								<strong>유저 정보</strong></br> <input type="text" name="usr_info"
+									placeholder="유저 정보 볼 글 번호를 입력하세요." maxlength=20 size=5 value=""> </br></br>
+								<input type="submit" value="조회" onclick="store_idx(); window.open('viewboards.html');"></br></br></br>
 							</div>
 							<strong>삭제할 글 번호</strong></br> <input type="text" name="idx" placeholder="지울 글 번호를 입력하세요."
 								maxlength=20 size=5 value=""> </br></br>
