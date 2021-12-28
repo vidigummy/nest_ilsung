@@ -11,15 +11,7 @@
         var http = require('http');
         var fs = require('fs');
 
-        function onRequest(request, response){
-
-            if(request.method == 'GET' && request.url == '/'){
-                response.writeHead(200, {"Content-Type":"text/html"});
-                fs.createReadStream("\\wsl$\Ubuntu\home\hyeonsu\nest_ilsung\public\index.html").pipe(response);
-            } else{
-                send404Message(response);
-            }
-        }
+        
     </script>
 </body>
 </html>

@@ -10,47 +10,88 @@
 <link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
 
+<script>
+	function GetTable(){
+		var search_var = document.querySelector('search_var');
+		var token = localStorage.getItem('auth');
+		console.log(token);
+		$.ajax({
+			url:"http://localhost:3000/boards",
+			type:"get",
+			dataType:"json",
+			headers: {
+				"Authorization": "Bearer ${token}"
+			},
+			success:function(data){ //json 데이터를 반환 받음
+				alert("1")
+				if(data.length>0){
+					var tb = $("<table/>"); 
+					for(var i in data){//데이터를 하나씩 뽑아냄
+						//i번째 data 중 key가 id인 것의 value
+						var $id = data[i].id;
+						//i번째 data 중 key가 name인 것의 value
+						var $name = data[i].name; 
+						//<tr>태그 객체 생성            
+						var row = $("<tr/>").append(
+							//아래의 값을 <tr></tr>안에 삽입
+							$("<td/>").text($title), //<td>id값</td> 
+							$("<td/>").text($full_txt), //<td>name값</td>               
+						);
+						//<table></table>안에 <tr></tr>넣기
+						tb.append(row); 
+					}
+					//클래스가 wrap인 태그 안에 작성된 table 코드 집어넣기
+					$(".wrap").append(tb); 
+					      
+				}        
+			},
+			error:function(e){
+				alert("0");
+			}
+		})
+	}
 
+</script>
 </head>
 <body>
 
 <!-- HEADER =============================-->
 <header class="item header margin-top-0">
-<div class="wrapper">
-	<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
-			<i class="fa fa-bars"></i>
-			<span class="sr-only">Toggle navigation</span>
-			</button>
-			<a href="index.html" class="navbar-brand brand"> SCORILO </a>
+	<div class="wrapper">
+		<nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button data-target="#navbar-collapse-02" data-toggle="collapse" class="navbar-toggle" type="button">
+				<i class="fa fa-bars"></i>
+				<span class="sr-only">Toggle navigation</span>
+				</button>
+				<a href="index.html" class="navbar-brand brand"> IlsungGas </a>
+			</div>
+			<div id="navbar-collapse-02" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="propClone"><a href="index.html">Home</a></li>
+					<li class="propClone"><a href="info.html">Info</a></li>
+					<li class="propClone"><a href="shop.html">Product</a></li>
+					<li class="propClone"><a href="contact.html">Send</a></li>
+					<li class="propClone"><a href="managing.html">Managing</a></li>
+					<li class="propClone"><a href="login.html">login</a></li>
+				</ul>
+			</div>
 		</div>
-		<div id="navbar-collapse-02" class="collapse navbar-collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="propClone"><a href="index.html">Home</a></li>
-				<li class="propClone"><a href="shop.html">Shop</a></li>
-				<li class="propClone"><a href="info.html">Info</a></li>
-				<li class="propClone"><a href="contact.html">Contact</a></li>
-				<li class="propClone"><a href="login.html">login</a></li>
-				<li class="propClone"><a href="managing.html">Managing</a></li>
-			</ul>
-		</div>
-	</div>
-	</nav>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12 text-center">
-				<div class="text-pageheader">
-					<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-						 Checkout
+		</nav>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<div class="text-pageheader">
+						<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
+							 Managing
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-</header>
+	</header>
 <!-- CONTENT =============================-->
 <section class="item content">
 <div class="container toparea">
@@ -63,7 +104,7 @@
 	</script>
 	<div class="underlined-title">
 		<div class="editContent">
-			<h1 class="text-center latestitems">Get in Touch</h1>
+			<h1 class="text-center latestitems">Ask you</h1>
 		</div>
 		<div class="wow-hr type_short">
 			<span class="wow-hr-h">
@@ -83,10 +124,9 @@
 			</div>
 			<form id="contactform">
 				<div class="form">
-					<input type="text" name="name" placeholder="Your Name *">
-					<input type="text" name="email" placeholder="Your E-mail Address *">
-					<textarea name="comment" rows="7" placeholder="Type your Message *"></textarea>
-					<input type="submit" value="전송"onclick="login()";>
+					<div class="wrap">
+						<input type="button" value="확인" onclick="GetTable();">
+					</div>
 				</div>
 			</form>
 		</div>
